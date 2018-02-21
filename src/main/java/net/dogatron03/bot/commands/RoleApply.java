@@ -17,20 +17,10 @@ public class RoleApply extends DiscordCommand {
 
     public void onCommandCalled(CommandCalledEvent e) {
         if (e.getCommandArgs() == null || e.getCommandArgs().equalsIgnoreCase("")) {
-            e.reply("Usage: !roleapply <user> <roleid>");
+            e.reply("Usage: !roleapply <name>");
             return;
         }
-        String[] x = e.getCommandArgs().split(" ");
-        if (x.length < 2) {
-            e.reply("Usage: !roleapply <user> <roleid>");
-            return;
-        }
-        User m = e.getMessage().getMentionedUsers().stream().findFirst().orElse(null);
-        if (m == null) {
-            e.reply("Invalid User!");
-            return;
-        }
-        Role r = Bot.guild.getRoleById(x[1]);
+        Role r = Bot.guild.getRolesByName(e.getCommandArgs(), true).stream().findFirst().orElse(null);
         if (r == null) {
             e.reply("Invalid Role!");
             return;
@@ -39,7 +29,8 @@ public class RoleApply extends DiscordCommand {
             e.reply("Role higher than bot role therefore cannot assign!");
             return;
         }
-        Member mb = Bot.guild.getMember(m);
+        User m = e.getMember().getUser();
+        Member mb = e.getMember();
         if (Bot.c.contains("role." + m.getName())) {
             Role z = Bot.guild.getRoleById(Bot.c.getLong("role." + m.getName()));
             if (!mb.getRoles().contains(r) && mb.getRoles().contains(z)) {

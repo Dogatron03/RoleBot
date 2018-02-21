@@ -13,14 +13,14 @@ public class RoleDelete extends DiscordCommand {
 
     public void onCommandCalled(CommandCalledEvent e) {
         if(e.getCommandArgs() == null || e.getCommandArgs().equalsIgnoreCase("")){
-            e.reply("Usage: !delete <id>");
+            e.reply("Usage: !delete <name>");
             return;
         }
-        if(Bot.guild.getRoleById(e.getCommandArgs()) == null){
+        if(Bot.guild.getRolesByName(e.getCommandArgs(), true).stream().findFirst().orElse(null) == null){
             e.reply("Role doesn't exist!");
             return;
         }
-        Role r = Bot.guild.getRoleById(e.getCommandArgs());
+        Role r = Bot.guild.getRolesByName(e.getCommandArgs(), true).stream().findFirst().orElse(null);
         if(r.canInteract(Bot.guild.getRoleById(Bot.c.getLong("botRole", 0)))){
             e.reply("Role higher than bot role therefore cannot assign!");
             return;
