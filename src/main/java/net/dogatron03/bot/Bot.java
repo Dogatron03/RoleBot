@@ -1,6 +1,7 @@
 package net.dogatron03.bot;
 
 import net.dogatron03.bot.api.EventListener;
+import net.dogatron03.bot.api.MessageCommand;
 import net.dogatron03.bot.commands.*;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -53,6 +54,8 @@ public class Bot extends Plugin {
         new RoleNew();
         new RoleGet();
         new RoleDelete();
+
+        new MessageCommand("help", c.getString("help", "Lol no help for you ha!"), "rolehelp", "justforretards");
     }
 
     public static void save(){
