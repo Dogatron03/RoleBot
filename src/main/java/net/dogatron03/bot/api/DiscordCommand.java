@@ -32,6 +32,7 @@ public class DiscordCommand {
 
     public static void onMessageRecived(CommandCalledEvent e) {
         DiscordCommand c = commands.stream().filter(f -> f.name.equalsIgnoreCase(e.getCommandName()) || f.aliases.stream().anyMatch(x -> x.equalsIgnoreCase(e.getCommandName()))).findFirst().orElse(null);
+        if(c == null) return;
         if (c.channel != 0 && e.getMessage().getChannel().getIdLong() != c.channel && !e.isFromType(ChannelType.PRIVATE)) {
             PrivateChannel ch = e.getAuthor().openPrivateChannel().complete();
             ch.sendMessage("Wrong channel for that command").complete();
