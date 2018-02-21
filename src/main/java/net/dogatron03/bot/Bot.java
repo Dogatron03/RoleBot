@@ -6,6 +6,8 @@ import net.dogatron03.bot.commands.*;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.OnlineStatus;
+import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import net.md_5.bungee.api.plugin.Plugin;
@@ -49,11 +51,14 @@ public class Bot extends Plugin {
 
         guild.getTextChannelById(c.getLong("channel", 0)).sendMessage(c.getString("bootMessage", "Hello World! Somebody hasn't provided me with a boot message!")).complete();
 
+        bot.getPresence().setPresence(OnlineStatus.ONLINE, Game.of("Prefix: ! | Type !help"));
+
         new RoleColourEdit();
         new RoleApply();
         new RoleNew();
         new RoleGet();
         new RoleDelete();
+        new Talk();
 
         new MessageCommand("help", c.getString("help", "Lol no help for you ha!"), "rolehelp", "justforretards");
     }
