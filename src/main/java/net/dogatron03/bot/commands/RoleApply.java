@@ -29,12 +29,12 @@ public class RoleApply extends DiscordCommand {
             e.reply("Role higher than bot role therefore cannot assign!");
             return;
         }
-        if(!Bot.c.getLongList("allowedRoles").contains(r.getIdLong())){
+        User m = e.getMember().getUser();
+        Member mb = e.getMember();
+        if(!Bot.c.getLongList(m.getName()+".allowedRoles").contains(r.getIdLong())){
             e.reply("Role not allowed!");
             return;
         }
-        User m = e.getMember().getUser();
-        Member mb = e.getMember();
         if (Bot.c.contains("role." + m.getName())) {
             Role z = Bot.guild.getRoleById(Bot.c.getLong("role." + m.getName()));
             if (!mb.getRoles().contains(r) && mb.getRoles().contains(z)) {

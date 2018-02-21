@@ -24,10 +24,10 @@ public class RoleDisAllow extends DiscordCommand {
             e.reply("Invalid Role!");
             return;
         }
-        List<Long> x = Bot.c.getLongList("allowedRoles");
+        List<Long> x = Bot.c.getLongList(e.getAuthor().getName() + ".allowedRoles");
         if (x.contains(r.getIdLong()))
             x.remove(r.getIdLong());
-        Bot.c.set("allowedRoles", x);
+        Bot.c.set(e.getAuthor().getName() + ".allowedRoles", x);
         Bot.save();
         e.reply("Disallowed Role!");
     }
