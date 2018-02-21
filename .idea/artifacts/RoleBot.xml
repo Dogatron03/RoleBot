@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="RoleBot">
+    <output-path>$PROJECT_DIR$/out/artifacts/RoleBot</output-path>
+    <root id="archive" name="RoleBot.jar">
+      <element id="module-output" name="WorkingBot" />
+    </root>
+  </artifact>
+</component>

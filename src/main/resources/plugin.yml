@@ -1,0 +1,5 @@
+name: RoleBot
+version: 1.0
+author: Dogatron03
+main: net.dogatron03.bot.Bot
+depends: [DNBottyLibraries]
