@@ -3,28 +3,25 @@ package net.dogatron03.bot.commands;
 import net.dogatron03.bot.Bot;
 import net.dogatron03.bot.api.CommandCalledEvent;
 import net.dogatron03.bot.api.DiscordCommand;
+import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.entities.Role;
 
 import java.util.List;
 
-public class RoleDelete extends DiscordCommand {
-
-    public RoleDelete() {
-        super("roledelete", "delete");
+public class RoleDisAllow extends DiscordCommand {
+    public RoleDisAllow() {
+        super("roledisallow", 389889650749210624L, "disallowrole");
     }
 
     public void onCommandCalled(CommandCalledEvent e) {
+        if (e.getChannelType() == ChannelType.PRIVATE) return;
         if (e.getCommandArgs() == null || e.getCommandArgs().equalsIgnoreCase("")) {
-            e.reply("Usage: !delete <name>");
-            return;
-        }
-        if (Bot.guild.getRolesByName(e.getCommandArgs(), true).stream().findFirst().orElse(null) == null) {
-            e.reply("Role doesn't exist!");
+            e.reply("Usage: !roledisallow <name>");
             return;
         }
         Role r = Bot.guild.getRolesByName(e.getCommandArgs(), true).stream().findFirst().orElse(null);
-        if (r.canInteract(Bot.guild.getRoleById(Bot.c.getLong("botRole", 0)))) {
-            e.reply("Role higher than bot role therefore cannot assign!");
+        if (r == null) {
+            e.reply("Invalid Role!");
             return;
         }
         List<Long> x = Bot.c.getLongList("allowedRoles");
@@ -32,8 +29,8 @@ public class RoleDelete extends DiscordCommand {
             x.remove(r.getIdLong());
         Bot.c.set("allowedRoles", x);
         Bot.save();
-        r.delete().complete();
-        e.reply("Deleted Role!");
+        e.reply("Disallowed Role!");
     }
+
 
 }

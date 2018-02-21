@@ -59,6 +59,8 @@ public class Bot extends Plugin {
         new RoleGet();
         new RoleDelete();
         new Talk();
+        new RoleAllow();
+        new RoleDisAllow();
 
         new MessageCommand("help", c.getString("help", "Lol no help for you ha!"), "rolehelp", "justforretards");
     }
